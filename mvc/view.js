@@ -20,13 +20,25 @@ class view{
     }
     updateCell(data){ //you recieve data from model - data.move - row , data.player- color
         const allSquares = document.getElementsByClassName('square');
-        if(!allSquares[data.move].textContent){
-            allSquares[data.move].textContent = data.player
+        const originalData = data.move; //holds original data
+        let num2=(7-data.move); //will be used in for loop
+        for (let num1=2; num1<8; num1++){
+            {
+                if(!allSquares[data.move].textContent){
+                    data.move = (originalData * num1) + num2; //go to next square in row
+                    num2+=(num2/(num1-1))
+                }
+                if(allSquares[data.move].textContent){
+                    data.move = data.move  - 7 //if there was content go up one slot
+                    allSquares[data.move].textContent = data.player
+                    allSquares[data.move].classList.add(data.player) //for design
+                    return;
+                }
+            }
         }
-        else{
-            data.move += 7; //search next in row
-            this.updateCell(data); //recursion untill you find correct cell to update
-        }
+        allSquares[data.move].textContent = data.player //in case there is no data at all in row
+        allSquares[data.move].classList.add(data.player) //for design
+        return;
     }
 
     

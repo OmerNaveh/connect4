@@ -28,10 +28,18 @@ class model{
     }
     victory(){
         for(let i =0; i<this.board.length; i++){
-            if(this.board[i] && this.board[i] === this.board[i+7] && this.board[i] === this.board[i+14] && this.board[i]=== this.board[i+21]){this.finished = true}; //rows
-            if(this.board[i] && this.board[i] === this.board[i+1] && this.board[i] === this.board[i+2] && this.board[i] === this.board[i+3]){this.finished = true}; //columns
-            if(this.board[i] && this.board[i] === this.board[i+8] && this.board[i] === this.board[i+16] && this.board[i] === this.board[i+24]){this.finished = true}; //diagonal
-            if(this.board[i] && this.board[i] === this.board[i+6] && this.board[i] === this.board[i+12] && this.board[i] === this.board[i+18]){this.finished = true}; //reverse diagonal
+            if(this.board[i] && this.board[i] === this.board[i+7] && this.board[i] === this.board[i+14] && this.board[i]=== this.board[i+21]){this.finished = true;}; //rows
+        }
+        for(let j=0; j<4; j++){
+            for(let i = j ; i<this.board.length ; i+=7){
+                if(this.board[i] && this.board[i] === this.board[i+1] && this.board[i] === this.board[i+2] && this.board[i] === this.board[i+3]){this.finished = true;}; //columns
+                if(this.board[i] && this.board[i] === this.board[i+8] && this.board[i] === this.board[i+16] && this.board[i] === this.board[i+24]){this.finished = true;}; //diagonal
+            }   
+        }
+        for(let j = 0; j<4; j++){
+            for(let i = j+3 ; i<this.board.length ; i+=7){
+                if(this.board[i] && this.board[i] === this.board[i+6] && this.board[i] === this.board[i+12] && this.board[i] === this.board[i+18]){this.finished = true;}; //reverse diagonal
+            }
         }
         if(this.finished){
         this.victoryEvent.trigger(this.currentPlayer); //send data the game was finished and who won
